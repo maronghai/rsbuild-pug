@@ -23,11 +23,9 @@ export const pluginPug = (options) => ({
       }
 
       if (VUE_SFC_REGEXP.test(resourcePath)) {
-        let template
         try {
-          template = compile(code, options)
-          const { dependencies } = template
-          if (dependencies) dependencies.forEach(addDependency)
+          const template = compile(code, options)
+          template?.dependencies?.forEach(addDependency)
           return template()
         } catch (e) {
           addDependency(e.filename)
